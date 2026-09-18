@@ -3,122 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sushma's Album</title>
+    <title>Sushma's Album - Netflix Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans">
+<body class="bg-[#141414] text-white min-h-screen font-sans selection:bg-red-600 selection:text-white">
 
-    <!-- Header -->
-    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-40">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div>
-                <h1 class="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-400 bg-clip-text text-transparent">
-                    Mom's Album 💖
-                </h1>
-                <p class="text-xs text-slate-400">Sushma's personal memory stash</p>
-            </div>
-            <button onclick="toggleAddModal()" class="bg-pink-600 hover:bg-pink-500 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition">
-                <i class="fa-solid fa-plus"></i> Add Memory
+    <!-- Netflix Navigation Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 via-black/50 to-transparent px-4 md:px-12 py-4 flex items-center justify-between transition-all duration-300">
+        <div class="flex items-center gap-8">
+            <h1 class="text-2xl md:text-3xl font-extrabold text-[#E50914] tracking-wider uppercase drop-shadow-md">
+                SUSHMA
+            </h1>
+            <nav class="hidden md:flex gap-5 text-xs text-gray-300 font-medium">
+                <a href="#hero" class="hover:text-white transition">Home</a>
+                <a href="#row-Family" class="hover:text-white transition">Family</a>
+                <a href="#row-Trips" class="hover:text-white transition">Trips</a>
+                <a href="#row-Special" class="hover:text-white transition">Special Days</a>
+            </nav>
+        </div>
+        <div class="flex items-center gap-4">
+            <button onclick="toggleAddModal()" class="bg-[#E50914] hover:bg-[#b80710] text-white px-4 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition shadow-lg">
+                <i class="fa-solid fa-plus"></i> Add Entry
             </button>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="max-w-6xl mx-auto px-4 py-8 flex-grow">
-        <!-- Filter Tabs -->
-        <div id="filter-bar" class="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-none">
-            <button onclick="filterCategory('All')" class="category-btn active px-4 py-1.5 rounded-full text-xs font-semibold bg-pink-600 text-white">All</button>
-            <button onclick="filterCategory('Family')" class="category-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">Family</button>
-            <button onclick="filterCategory('Trips')" class="category-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">Trips</button>
-            <button onclick="filterCategory('Special')" class="category-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">Special Days</button>
+    <!-- Netflix Hero Section -->
+    <section id="hero" class="relative h-[70vh] md:h-[80vh] flex items-end pb-16 px-4 md:px-12 bg-gradient-to-t from-[#141414] via-[#141414]/40 to-black/70">
+        <div class="absolute inset-0 -z-10 bg-[url('https://images.unsplash.com/photo-1511895426328-dc8714191300?w=1600')] bg-cover bg-center opacity-30"></div>
+        <div class="max-w-2xl space-y-4">
+            <span class="text-xs font-bold tracking-widest text-red-500 uppercase">SUSHMA ORIGINAL</span>
+            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tight">Sushma's Vault</h2>
+            <p class="text-sm md:text-base text-gray-300 leading-relaxed line-clamp-3">
+                A curated memory showcase featuring top moments, trips, family events, and special days. Unlimited playback of nostalgic memories.
+            </p>
+            <div class="flex items-center gap-3 pt-2">
+                <button onclick="document.getElementById('row-Family').scrollIntoView({ behavior: 'smooth' })" class="bg-white text-black hover:bg-gray-200 px-6 py-2 rounded font-bold text-xs flex items-center gap-2 transition">
+                    <i class="fa-solid fa-play text-black"></i> Browse
+                </button>
+                <button onclick="toggleAddModal()" class="bg-gray-500/50 hover:bg-gray-500/70 text-white px-6 py-2 rounded font-bold text-xs flex items-center gap-2 backdrop-blur transition">
+                    <i class="fa-solid fa-circle-info"></i> Add New
+                </button>
+            </div>
         </div>
+    </section>
 
-        <!-- Album Cards Grid -->
-        <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <!-- Dynamic Cards -->
-        </div>
+    <!-- Content Categories (Netflix Rows) -->
+    <main class="px-4 md:px-12 space-y-10 -mt-12 relative z-10 pb-20">
+        
+        <!-- Category Row: Family -->
+        <section id="row-Family" class="space-y-3">
+            <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
+                Family & Loved Ones <span class="text-xs font-normal text-red-500">Popular</span>
+            </h3>
+            <div id="grid-Family" class="flex gap-4 overflow-x-auto no-scrollbar py-4 scroll-smooth">
+                <!-- Dynamically injected -->
+            </div>
+        </section>
+
+        <!-- Category Row: Trips -->
+        <section id="row-Trips" class="space-y-3">
+            <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100">
+                Trips & Adventures
+            </h3>
+            <div id="grid-Trips" class="flex gap-4 overflow-x-auto no-scrollbar py-4 scroll-smooth">
+                <!-- Dynamically injected -->
+            </div>
+        </section>
+
+        <!-- Category Row: Special Days -->
+        <section id="row-Special" class="space-y-3">
+            <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100">
+                Special Days & Events
+            </h3>
+            <div id="grid-Special" class="flex gap-4 overflow-x-auto no-scrollbar py-4 scroll-smooth">
+                <!-- Dynamically injected -->
+            </div>
+        </section>
+
     </main>
 
-    <!-- Add Entry Modal -->
-    <div id="add-modal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 max-w-md w-full relative">
-            <h3 class="text-lg font-bold text-slate-100 mb-4">Add a New Memory Card</h3>
+    <!-- Modal for Adding Entry -->
+    <div id="add-modal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 p-4 backdrop-blur-sm">
+        <div class="bg-[#181818] border border-neutral-800 rounded-lg p-6 max-w-md w-full relative shadow-2xl">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold text-white uppercase tracking-wider">New Title</h3>
+                <button onclick="toggleAddModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
             <form id="add-form" onsubmit="handleAdd(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-medium text-slate-400 mb-1">Title / Caption</label>
-                    <input type="text" id="entry-title" required placeholder="e.g. Goa Beach Sunset" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-pink-500">
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Title</label>
+                    <input type="text" id="entry-title" required placeholder="e.g. Goa Sunset" class="w-full bg-[#2f2f2f] border border-transparent focus:border-red-600 rounded px-3 py-2 text-sm text-white focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-xs font-medium text-slate-400 mb-1">Category</label>
-                    <select id="entry-category" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-pink-500">
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Category</label>
+                    <select id="entry-category" class="w-full bg-[#2f2f2f] border border-transparent focus:border-red-600 rounded px-3 py-2 text-sm text-white focus:outline-none">
                         <option value="Family">Family</option>
                         <option value="Trips">Trips</option>
                         <option value="Special">Special Days</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-medium text-slate-400 mb-1">Note / Description</label>
-                    <textarea id="entry-desc" rows="3" placeholder="Write a quick note about this day..." class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-pink-500"></textarea>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Description / Note</label>
+                    <textarea id="entry-desc" rows="3" placeholder="Write details about this memory..." class="w-full bg-[#2f2f2f] border border-transparent focus:border-red-600 rounded px-3 py-2 text-sm text-white focus:outline-none"></textarea>
                 </div>
                 <div class="flex justify-end gap-2 pt-2">
-                    <button type="button" onclick="toggleAddModal()" class="px-4 py-2 rounded-lg text-xs font-medium text-slate-400 hover:bg-slate-800">Cancel</button>
-                    <button type="submit" class="bg-pink-600 hover:bg-pink-500 text-white px-4 py-2 rounded-lg text-xs font-medium">Save Memory</button>
+                    <button type="button" onclick="toggleAddModal()" class="px-4 py-2 rounded text-xs font-bold text-gray-400 hover:bg-[#2f2f2f]">Cancel</button>
+                    <button type="submit" class="bg-[#E50914] hover:bg-[#b80710] text-white px-5 py-2 rounded text-xs font-bold">Save</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
-        let memories = [
-            { id: 1, title: 'Goa Trip Highlights', category: 'Trips', desc: 'Awesome evening spent near the beach catching the sunset.', date: 'May 2026' },
-            { id: 2, title: 'Family Dinner Night', category: 'Family', desc: 'Had a great feast together at home.', date: 'April 2026' },
-            { id: 3, title: 'Birthday Celebration', category: 'Special', desc: 'Cake cutting and fun times with everyone.', date: 'Dec 2025' }
+        const defaultData = [
+            { id: 1, title: 'Goa Outing Highlights', category: 'Trips', desc: 'Relaxing evening spent along the shore.', date: '2026' },
+            { id: 2, title: 'Family Dinner Night', category: 'Family', desc: 'Delicious home-cooked dinner together.', date: '2026' },
+            { id: 3, title: 'Birthday Bash', category: 'Special', desc: 'Cake cutting, decorations, and celebrations.', date: '2025' }
         ];
 
-        let activeCategory = 'All';
+        let memories = JSON.parse(localStorage.getItem('sushma_album_data')) || defaultData;
 
-        function renderGallery() {
-            const grid = document.getElementById('gallery-grid');
-            grid.innerHTML = '';
-
-            const filtered = activeCategory === 'All' 
-                ? memories 
-                : memories.filter(m => m.category === activeCategory);
-
-            if(filtered.length === 0) {
-                grid.innerHTML = `<p class="col-span-full text-center text-slate-500 py-12 text-sm">Nothing added in this section yet!</p>`;
-                return;
-            }
-
-            filtered.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg hover:border-slate-700 transition flex flex-col justify-between';
-
-                card.innerHTML = `
-                    <div>
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="text-[10px] font-bold uppercase tracking-wider text-pink-400 bg-pink-950/40 px-2 py-0.5 rounded">${item.category}</span>
-                            <span class="text-[11px] text-slate-500">${item.date || ''}</span>
-                        </div>
-                        <h4 class="text-base font-semibold text-slate-100 mb-2">${item.title}</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">${item.desc}</p>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
+        function saveAndRender() {
+            localStorage.setItem('sushma_album_data', JSON.stringify(memories));
+            renderRows();
         }
 
-        function filterCategory(cat) {
-            activeCategory = cat;
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                if(btn.innerText === cat) {
-                    btn.className = 'category-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-pink-600 text-white';
-                } else {
-                    btn.className = 'category-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700';
+        function renderRows() {
+            const categories = ['Family', 'Trips', 'Special'];
+
+            categories.forEach(cat => {
+                const container = document.getElementById(`grid-${cat}`);
+                container.innerHTML = '';
+
+                const filtered = memories.filter(m => m.category === cat);
+
+                if (filtered.length === 0) {
+                    container.innerHTML = `<p class="text-xs text-gray-500 py-6">No entries in this row yet.</p>`;
+                    return;
                 }
+
+                filtered.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'flex-shrink-0 w-60 sm:w-72 bg-[#2f2f2f] border border-neutral-800 rounded-md p-4 transition-all duration-300 transform hover:scale-105 hover:z-20 hover:border-red-600 hover:shadow-2xl cursor-pointer flex flex-col justify-between space-y-3';
+
+                    card.innerHTML = `
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-[10px] font-extrabold uppercase text-red-500 tracking-wider">MATCH 98%</span>
+                                <span class="text-[10px] text-gray-400 font-mono">${item.date || 'NEW'}</span>
+                            </div>
+                            <h4 class="text-sm font-bold text-white tracking-wide">${item.title}</h4>
+                            <p class="text-xs text-gray-400 leading-snug line-clamp-3">${item.desc}</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-2 border-t border-neutral-700/50">
+                            <span class="text-[10px] bg-red-950/60 text-red-400 px-2 py-0.5 rounded font-bold uppercase tracking-wider">${item.category}</span>
+                            <button onclick="deleteEntry(${item.id})" class="text-gray-500 hover:text-red-500 transition text-xs" title="Delete">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
             });
-            renderGallery();
         }
 
         function toggleAddModal() {
@@ -138,15 +190,22 @@
                 title,
                 category,
                 desc,
-                date: 'Just now'
+                date: new Date().getFullYear().toString()
             });
 
             toggleAddModal();
             document.getElementById('add-form').reset();
-            renderGallery();
+            saveAndRender();
         }
 
-        renderGallery();
+        function deleteEntry(id) {
+            if(confirm('Remove this memory entry?')) {
+                memories = memories.filter(m => m.id !== id);
+                saveAndRender();
+            }
+        }
+
+        renderRows();
     </script>
 </body>
 </html>
