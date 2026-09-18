@@ -3,88 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sushma's Album - Netflix Edition</title>
+    <title>Happy Birthday Sushma! - Memory Vault</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .fade-transition { transition: opacity 0.8s ease-in-out; }
+        
+        @keyframes netflixGlow {
+            0% { transform: scale(0.9); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; text-shadow: 0 0 20px rgba(229, 9, 20, 0.8); }
+            100% { transform: scale(1); opacity: 1; text-shadow: 0 0 10px rgba(229, 9, 20, 0.5); }
+        }
+        .animate-netflix-intro {
+            animation: netflixGlow 2s ease-out forwards;
+        }
+        @keyframes progressLoading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        .animate-progress {
+            animation: progressLoading 3.5s linear forwards;
+        }
     </style>
 </head>
 <body class="bg-[#141414] text-white min-h-screen font-sans selection:bg-red-600 selection:text-white">
 
-    <!-- Netflix Navigation Header -->
-    <header class="fixed top-0 left-0 right-0 z-40 bg-gradient-to-b from-black/90 via-black/50 to-transparent px-4 md:px-12 py-4 flex items-center justify-between">
-        <div class="flex items-center gap-8">
-            <h1 class="text-2xl md:text-3xl font-extrabold text-[#E50914] tracking-wider uppercase drop-shadow-md">
-                SUSHMA
+    <!-- Netflix-Style Birthday Splash Screen -->
+    <div id="intro-screen" class="fixed inset-0 bg-[#141414] z-50 flex flex-col items-center justify-center p-6 text-center transition-opacity duration-1000">
+        <div class="space-y-6 max-w-lg">
+            <h1 class="text-4xl md:text-6xl font-black text-[#E50914] uppercase tracking-widest animate-netflix-intro">
+                HAPPY BIRTHDAY<br>SUSHMA! 🎉
             </h1>
-            <nav class="hidden md:flex gap-5 text-xs text-gray-300 font-medium">
-                <a href="#hero" class="hover:text-white transition">Home</a>
-                <a href="#row-Me" class="hover:text-white transition">Me</a>
-                <a href="#row-Family" class="hover:text-white transition">Family</a>
-                <a href="#row-Bija" class="hover:text-white transition">Bija</a>
-                <a href="#row-Funny" class="hover:text-white transition">Funny Moments</a>
-                <a href="#row-Trips" class="hover:text-white transition">Trips</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Netflix Hero Section -->
-    <section id="hero" class="relative h-[65vh] md:h-[75vh] flex items-end pb-16 px-4 md:px-12 bg-gradient-to-t from-[#141414] via-[#141414]/40 to-black/70">
-        <div id="hero-bg" class="absolute inset-0 -z-10 bg-cover bg-center opacity-30"></div>
-        <div class="max-w-2xl space-y-4">
-            <span class="text-xs font-bold tracking-widest text-red-500 uppercase">SUSHMA ORIGINAL</span>
-            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tight">Mom's Memory Vault</h2>
-            <p class="text-sm md:text-base text-gray-300 leading-relaxed line-clamp-3">
-                A curated memory collection featuring personal photos, moments with Bija, family gatherings, funny bloopers, and trips.
+            <p class="text-gray-400 text-sm md:text-base font-medium tracking-wide">
+                Loading Sushma's Personal Memory Vault...
             </p>
-            <div class="pt-2">
-                <button onclick="startSlideshow()" class="bg-white text-black hover:bg-gray-200 px-8 py-3 rounded font-bold text-sm flex items-center gap-3 transition shadow-lg hover:scale-105 transform">
-                    <i class="fa-solid fa-play text-black text-base"></i> Play Slideshow
-                </button>
+            <div class="w-64 h-1.5 bg-neutral-800 rounded-full mx-auto overflow-hidden">
+                <div class="h-full bg-[#E50914] animate-progress"></div>
             </div>
+            <button onclick="skipIntro()" class="text-xs text-neutral-500 hover:text-white transition pt-4">
+                Skip Intro <i class="fa-solid fa-chevron-right ml-1"></i>
+            </button>
         </div>
-    </section>
+    </div>
 
-    <!-- Content Categories -->
-    <main class="px-4 md:px-12 space-y-10 -mt-10 relative z-10 pb-20">
-        <section id="row-Me" class="space-y-3">
-            <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
-                Sushma (Me) <span class="text-xs font-normal text-red-500">Personal</span>
-            </h3>
-            <div id="grid-Me" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
+    <!-- Main Content App -->
+    <div id="main-app" class="opacity-0 transition-opacity duration-1000">
+        
+        <!-- Netflix Navigation Header -->
+        <header class="fixed top-0 left-0 right-0 z-40 bg-gradient-to-b from-black/90 via-black/50 to-transparent px-4 md:px-12 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-8">
+                <h1 class="text-2xl md:text-3xl font-extrabold text-[#E50914] tracking-wider uppercase drop-shadow-md">
+                    SUSHMA
+                </h1>
+                <nav class="hidden md:flex gap-5 text-xs text-gray-300 font-medium">
+                    <a href="#hero" class="hover:text-white transition">Home</a>
+                    <a href="#row-Me" class="hover:text-white transition">Me</a>
+                    <a href="#row-Family" class="hover:text-white transition">Family</a>
+                    <a href="#row-Bija" class="hover:text-white transition">Bija</a>
+                    <a href="#row-Funny" class="hover:text-white transition">Funny Moments</a>
+                    <a href="#row-Trips" class="hover:text-white transition">Trips</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Netflix Hero Section -->
+        <section id="hero" class="relative h-[65vh] md:h-[75vh] flex items-end pb-16 px-4 md:px-12 bg-gradient-to-t from-[#141414] via-[#141414]/40 to-black/70">
+            <div id="hero-bg" class="absolute inset-0 -z-10 bg-cover bg-center opacity-30"></div>
+            <div class="max-w-2xl space-y-4">
+                <span class="text-xs font-bold tracking-widest text-red-500 uppercase">SUSHMA ORIGINAL</span>
+                <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tight">Mom's Memory Vault</h2>
+                <p class="text-sm md:text-base text-gray-300 leading-relaxed line-clamp-3">
+                    Happy Birthday Mom! Here is your curated memory showcase featuring personal moments, photos with Bija, family gatherings, funny bloopers, and trips.
+                </p>
+                <div class="pt-2">
+                    <button onclick="startSlideshow()" class="bg-white text-black hover:bg-gray-200 px-8 py-3 rounded font-bold text-sm flex items-center gap-3 transition shadow-lg hover:scale-105 transform">
+                        <i class="fa-solid fa-play text-black text-base"></i> Play Slideshow
+                    </button>
+                </div>
+            </div>
         </section>
 
-        <section id="row-Family" class="space-y-3">
-            <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
-                Family & Loved Ones <span class="text-xs font-normal text-red-500">Popular</span>
-            </h3>
-            <div id="grid-Family" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
-        </section>
+        <!-- Category Image Rows -->
+        <main class="px-4 md:px-12 space-y-10 -mt-10 relative z-10 pb-20">
+            <section id="row-Me" class="space-y-3">
+                <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
+                    Sushma (Me) <span class="text-xs font-normal text-red-500">Personal</span>
+                </h3>
+                <div id="grid-Me" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
+            </section>
 
-        <section id="row-Bija" class="space-y-3">
-            <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
-                Mom & Bija <span class="text-xs font-normal text-red-500">Featured</span>
-            </h3>
-            <div id="grid-Bija" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
-        </section>
+            <section id="row-Family" class="space-y-3">
+                <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
+                    Family & Loved Ones <span class="text-xs font-normal text-red-500">Popular</span>
+                </h3>
+                <div id="grid-Family" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
+            </section>
 
-        <section id="row-Funny" class="space-y-3">
-            <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
-                Funny Pictures & Bloopers 😂
-            </h3>
-            <div id="grid-Funny" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
-        </section>
+            <section id="row-Bija" class="space-y-3">
+                <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
+                    Mom & Bija <span class="text-xs font-normal text-red-500">Featured</span>
+                </h3>
+                <div id="grid-Bija" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
+            </section>
 
-        <section id="row-Trips" class="space-y-3">
-            <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100">
-                Trips & Outings
-            </h3>
-            <div id="grid-Trips" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
-        </section>
-    </main>
+            <section id="row-Funny" class="space-y-3">
+                <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
+                    Funny Pictures & Bloopers 😂
+                </h3>
+                <div id="grid-Funny" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
+            </section>
+
+            <section id="row-Trips" class="space-y-3">
+                <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100">
+                    Trips & Outings
+                </h3>
+                <div id="grid-Trips" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
+            </section>
+        </main>
+    </div>
 
     <!-- Fullscreen Lightbox Modal -->
     <div id="lightbox-modal" class="fixed inset-0 bg-black/95 hidden items-center justify-center z-50 p-4 cursor-pointer" onclick="closeLightbox()">
@@ -104,6 +142,21 @@
 
     <script>
         let memories = [];
+
+        // Birthday Splash Screen Controller
+        setTimeout(() => {
+            skipIntro();
+        }, 3800);
+
+        function skipIntro() {
+            const intro = document.getElementById('intro-screen');
+            const mainApp = document.getElementById('main-app');
+            intro.style.opacity = '0';
+            setTimeout(() => {
+                intro.style.display = 'none';
+                mainApp.classList.remove('opacity-0');
+            }, 800);
+        }
 
         async function loadPhotos() {
             try {
@@ -130,7 +183,7 @@
                 const filtered = memories.filter(m => m.category === cat);
 
                 if (filtered.length === 0) {
-                    container.innerHTML = `<p class="text-xs text-gray-500 py-6">No images found in this folder yet.</p>`;
+                    container.innerHTML = `<p class="text-xs text-gray-500 py-6">No images found in this folder yet. Drop pictures into the '${cat}' folder on your phone!</p>`;
                     return;
                 }
 

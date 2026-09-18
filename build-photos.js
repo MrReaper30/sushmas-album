@@ -19,7 +19,7 @@ Object.entries(folders).forEach(([category, folderName]) => {
         const files = fs.readdirSync(dirPath);
         files.forEach(file => {
             const ext = path.extname(file).toLowerCase();
-            if (validExts.includes(ext)) {
+            if (validExts.includes(ext) && file !== '.gitkeep') {
                 photos.push({
                     id: id++,
                     title: path.basename(file, ext).replace(/[-_]/g, ' '),
@@ -32,4 +32,4 @@ Object.entries(folders).forEach(([category, folderName]) => {
 });
 
 fs.writeFileSync('photos.json', JSON.stringify(photos, null, 2));
-console.log(`✅ Loaded ${photos.length} local images into photos.json!`);
+console.log(`✅ Indexed ${photos.length} local images into photos.json!`);
