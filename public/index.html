@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sushma's Album</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans">
+
+    <!-- Header -->
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-400 bg-clip-text text-transparent">
+                    Sushma's Album
+                </h1>
+                <p class="text-xs text-slate-400">Personal Memory & Event Vault</p>
+            </div>
+            <button onclick="toggleUploadModal()" class="bg-pink-600 hover:bg-pink-500 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition">
+                <i class="fa-solid fa-plus"></i> Add Photo
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Section -->
+    <main class="max-w-6xl mx-auto px-4 py-8 flex-grow">
+        <!-- Categories Filter -->
+        <div id="filter-bar" class="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-none">
+            <button onclick="filterCategory('All')" class="category-btn active px-4 py-1.5 rounded-full text-xs font-semibold bg-pink-600 text-white">All</button>
+            <button onclick="filterCategory('Events')" class="category-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">Events</button>
+            <button onclick="filterCategory('Trips')" class="category-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">Trips</button>
+            <button onclick="filterCategory('General')" class="category-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700">General</button>
+        </div>
+
+        <!-- Photo Grid -->
+        <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <!-- Dynamic JS injection -->
+        </div>
+    </main>
+
+    <!-- Upload Modal -->
+    <div id="upload-modal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 max-w-md w-full relative">
+            <h3 class="text-lg font-bold text-slate-100 mb-4">Upload New Memory</h3>
+            <form id="upload-form" onsubmit="handleUpload(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">Title</label>
+                    <input type="text" id="photo-title" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-pink-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">Category</label>
+                    <select id="photo-category" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-pink-500">
+                        <option value="Events">Events</option>
+                        <option value="Trips">Trips</option>
+                        <option value="General">General</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">Select File</label>
+                    <input type="file" id="photo-file" accept="image/*" required class="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:bg-pink-600 file:text-white hover:file:bg-pink-500">
+                </div>
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" onclick="toggleUploadModal()" class="px-4 py-2 rounded-lg text-xs font-medium text-slate-400 hover:bg-slate-800">Cancel</button>
+                    <button type="submit" class="bg-pink-600 hover:bg-pink-500 text-white px-4 py-2 rounded-lg text-xs font-medium">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox-modal" class="fixed inset-0 bg-black/90 hidden flex-col items-center justify-center z-50 p-4" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" class="max-h-[80vh] max-w-[90vw] object-contain rounded-lg shadow-2xl" onclick="event.stopPropagation()">
+        <p id="lightbox-caption" class="text-slate-300 text-sm mt-3 font-medium" onclick="event.stopPropagation()"></p>
+    </div>
+
+    <script>
+        let photosData = [];
+        let activeCategory = 'All';
+
+        async function fetchPhotos() {
+            const res = await fetch('/api/photos');
+            photosData = await res.json();
+            renderGallery();
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid');
+            grid.innerHTML = '';
+
+            const filtered = activeCategory === 'All' 
+                ? photosData 
+                : photosData.filter(p => p.category === activeCategory);
+
+            if(filtered.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-slate-500 py-12 text-sm">No photos found in this category.</p>`;
+                return;
+            }
+
+            filtered.forEach(photo => {
+                const card = document.createElement('div');
+                card.className = 'group relative aspect-square bg-slate-900 border border-slate-800 rounded-xl overflow-hidden cursor-pointer shadow-lg';
+                card.onclick = () => openLightbox(photo.url, photo.title);
+
+                card.innerHTML = `
+                    <img src="${photo.url}" alt="${photo.title}" class="w-full h-full object-cover transition duration-300 group-hover:scale-105" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent opacity-0 group-hover:opacity-100 transition flex flex-col justify-end p-4">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-pink-400">${photo.category}</span>
+                        <h4 class="text-sm font-semibold text-slate-100">${photo.title}</h4>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCategory(cat) {
+            activeCategory = cat;
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                if(btn.innerText === cat) {
+                    btn.className = 'category-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-pink-600 text-white';
+                } else {
+                    btn.className = 'category-btn px-4 py-1.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700';
+                }
+            });
+            renderGallery();
+        }
+
+        function toggleUploadModal() {
+            const modal = document.getElementById('upload-modal');
+            modal.classList.toggle('hidden');
+            modal.classList.toggle('flex');
+        }
+
+        async function handleUpload(e) {
+            e.preventDefault();
+            const formData = new FormData();
+            formData.append('title', document.getElementById('photo-title').value);
+            formData.append('category', document.getElementById('photo-category').value);
+            formData.append('photo', document.getElementById('photo-file').files[0]);
+
+            const res = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (res.ok) {
+                toggleUploadModal();
+                document.getElementById('upload-form').reset();
+                fetchPhotos();
+            }
+        }
+
+        function openLightbox(url, title) {
+            document.getElementById('lightbox-img').src = url;
+            document.getElementById('lightbox-caption').innerText = title;
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        fetchPhotos();
+    </script>
+</body>
+</html>
