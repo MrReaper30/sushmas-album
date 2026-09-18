@@ -30,7 +30,7 @@
         </div>
         <div class="flex items-center gap-4">
             <button onclick="toggleAddModal()" class="bg-[#E50914] hover:bg-[#b80710] text-white px-4 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition shadow-lg">
-                <i class="fa-solid fa-plus"></i> Add Entry
+                <i class="fa-solid fa-plus"></i> Add Photo
             </button>
         </div>
     </header>
@@ -42,14 +42,14 @@
             <span class="text-xs font-bold tracking-widest text-red-500 uppercase">SUSHMA ORIGINAL</span>
             <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tight">Mom's Memory Vault</h2>
             <p class="text-sm md:text-base text-gray-300 leading-relaxed line-clamp-3">
-                A curated memory collection featuring personal moments, photos with Bija, family gatherings, funny bloopers, and trips.
+                A curated memory collection featuring personal photos, moments with Bija, family gatherings, funny bloopers, and trips.
             </p>
             <div class="flex items-center gap-3 pt-2">
                 <button onclick="document.getElementById('row-Me').scrollIntoView({ behavior: 'smooth' })" class="bg-white text-black hover:bg-gray-200 px-6 py-2 rounded font-bold text-xs flex items-center gap-2 transition">
                     <i class="fa-solid fa-play text-black"></i> Browse Vault
                 </button>
                 <button onclick="toggleAddModal()" class="bg-gray-500/50 hover:bg-gray-500/70 text-white px-6 py-2 rounded font-bold text-xs flex items-center gap-2 backdrop-blur transition">
-                    <i class="fa-solid fa-circle-info"></i> Add New Memory
+                    <i class="fa-solid fa-circle-info"></i> Add New
                 </button>
             </div>
         </div>
@@ -63,9 +63,7 @@
             <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
                 Sushma (Me) <span class="text-xs font-normal text-red-500">Personal</span>
             </h3>
-            <div id="grid-Me" class="flex gap-4 overflow-x-auto no-scrollbar py-4 scroll-smooth">
-                <!-- Dynamically injected -->
-            </div>
+            <div id="grid-Me" class="flex gap-4 overflow-x-auto no-scrollbar py-4 scroll-smooth"></div>
         </section>
 
         <!-- Category Row: Family -->
@@ -73,9 +71,7 @@
             <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
                 Family & Loved Ones <span class="text-xs font-normal text-red-500">Popular</span>
             </h3>
-            <div id="grid-Family" class="flex gap-4 overflow-x-auto no-scrollbar py-4 scroll-smooth">
-                <!-- Dynamically injected -->
-            </div>
+            <div id="grid-Family" class="flex gap-4 overflow-x-auto no-scrollbar py-4 scroll-smooth"></div>
         </section>
 
         <!-- Category Row: Bija -->
@@ -83,9 +79,7 @@
             <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
                 Mom & Bija <span class="text-xs font-normal text-red-500">Featured</span>
             </h3>
-            <div id="grid-Bija" class="flex gap-4 overflow-x-auto no-scrollbar py-4 scroll-smooth">
-                <!-- Dynamically injected -->
-            </div>
+            <div id="grid-Bija" class="flex gap-4 overflow-x-auto no-scrollbar py-4 scroll-smooth"></div>
         </section>
 
         <!-- Category Row: Funny Moments -->
@@ -93,9 +87,7 @@
             <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
                 Funny Pictures & Bloopers 😂
             </h3>
-            <div id="grid-Funny" class="flex gap-4 overflow-x-auto no-scrollbar py-4 scroll-smooth">
-                <!-- Dynamically injected -->
-            </div>
+            <div id="grid-Funny" class="flex gap-4 overflow-x-auto no-scrollbar py-4 scroll-smooth"></div>
         </section>
 
         <!-- Category Row: Trips -->
@@ -103,9 +95,7 @@
             <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100">
                 Trips & Outings
             </h3>
-            <div id="grid-Trips" class="flex gap-4 overflow-x-auto no-scrollbar py-4 scroll-smooth">
-                <!-- Dynamically injected -->
-            </div>
+            <div id="grid-Trips" class="flex gap-4 overflow-x-auto no-scrollbar py-4 scroll-smooth"></div>
         </section>
 
     </main>
@@ -114,16 +104,16 @@
     <div id="add-modal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 p-4 backdrop-blur-sm">
         <div class="bg-[#181818] border border-neutral-800 rounded-lg p-6 max-w-md w-full relative shadow-2xl">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="text-lg font-bold text-white uppercase tracking-wider">Add New Memory</h3>
+                <h3 class="text-lg font-bold text-white uppercase tracking-wider">Add Photo Entry</h3>
                 <button onclick="toggleAddModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <form id="add-form" onsubmit="handleAdd(event)" class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold text-gray-400 mb-1">Title</label>
-                    <input type="text" id="entry-title" required placeholder="e.g. Favorite Portrait" class="w-full bg-[#2f2f2f] border border-transparent focus:border-red-600 rounded px-3 py-2 text-sm text-white focus:outline-none">
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Title / Caption</label>
+                    <input type="text" id="entry-title" required placeholder="e.g. Sunset in Goa" class="w-full bg-[#2f2f2f] border border-transparent focus:border-red-600 rounded px-3 py-2 text-sm text-white focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-gray-400 mb-1">Select Folder / Category</label>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Category Folder</label>
                     <select id="entry-category" class="w-full bg-[#2f2f2f] border border-transparent focus:border-red-600 rounded px-3 py-2 text-sm text-white focus:outline-none">
                         <option value="Me">Me (Personal)</option>
                         <option value="Family">Family</option>
@@ -133,8 +123,9 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold text-gray-400 mb-1">Description / Note</label>
-                    <textarea id="entry-desc" rows="3" placeholder="Write something about this memory..." class="w-full bg-[#2f2f2f] border border-transparent focus:border-red-600 rounded px-3 py-2 text-sm text-white focus:outline-none"></textarea>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">Image Filename or URL</label>
+                    <input type="text" id="entry-img" placeholder="e.g. photo1.jpg (or image URL)" class="w-full bg-[#2f2f2f] border border-transparent focus:border-red-600 rounded px-3 py-2 text-sm text-white focus:outline-none">
+                    <p class="text-[10px] text-gray-500 mt-1">Place image files in the respective folder (e.g., me/photo1.jpg) or paste an image URL.</p>
                 </div>
                 <div class="flex justify-end gap-2 pt-2">
                     <button type="button" onclick="toggleAddModal()" class="px-4 py-2 rounded text-xs font-bold text-gray-400 hover:bg-[#2f2f2f]">Cancel</button>
@@ -144,13 +135,26 @@
         </div>
     </div>
 
+    <!-- Lightbox Modal -->
+    <div id="lightbox-modal" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-50 p-4 cursor-pointer" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" class="max-h-[85vh] max-w-[90vw] object-contain rounded-lg shadow-2xl border border-neutral-800">
+    </div>
+
     <script>
+        const categoryFolders = {
+            'Me': 'me',
+            'Family': 'Family',
+            'Bija': 'Bija',
+            'Funny': 'Funny_Pictures',
+            'Trips': 'Trips'
+        };
+
         const defaultData = [
-            { id: 1, title: 'My Favorite Portrait', category: 'Me', desc: 'A nice photo taken during a function.', date: '2026' },
-            { id: 2, title: 'Family Feast Night', category: 'Family', desc: 'Big family dinner at home with everyone gathered.', date: '2026' },
-            { id: 3, title: 'Special Evening with Bija', category: 'Bija', desc: 'Quiet sunset talks and tea time.', date: '2026' },
-            { id: 4, title: 'The Mid-Photo Yawn', category: 'Funny', desc: 'Caught completely unprepared right when the flash went off!', date: '2026' },
-            { id: 5, title: 'Goa Outing', category: 'Trips', desc: 'Fun trip down by the shore.', date: '2025' }
+            { id: 1, title: 'Personal Portrait', category: 'Me', img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800', date: '2026' },
+            { id: 2, title: 'Family Gathering', category: 'Family', img: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800', date: '2026' },
+            { id: 3, title: 'Outing with Bija', category: 'Bija', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800', date: '2026' },
+            { id: 4, title: 'Funny Pose Blooper', category: 'Funny', img: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800', date: '2026' },
+            { id: 5, title: 'Goa Trip Shoreline', category: 'Trips', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800', date: '2025' }
         ];
 
         let memories = JSON.parse(localStorage.getItem('sushma_album_data')) || defaultData;
@@ -158,6 +162,13 @@
         function saveAndRender() {
             localStorage.setItem('sushma_album_data', JSON.stringify(memories));
             renderRows();
+        }
+
+        function resolveImgPath(item) {
+            if (!item.img) return 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800';
+            if (item.img.startsWith('http://') || item.img.startsWith('https://')) return item.img;
+            const folder = categoryFolders[item.category] || 'me';
+            return `./${folder}/${item.img}`;
         }
 
         function renderRows() {
@@ -172,28 +183,31 @@
                 const filtered = memories.filter(m => m.category === cat);
 
                 if (filtered.length === 0) {
-                    container.innerHTML = `<p class="text-xs text-gray-500 py-6">No memories added to this folder yet.</p>`;
+                    container.innerHTML = `<p class="text-xs text-gray-500 py-6">No photos in this folder yet.</p>`;
                     return;
                 }
 
                 filtered.forEach(item => {
+                    const imgPath = resolveImgPath(item);
                     const card = document.createElement('div');
-                    card.className = 'flex-shrink-0 w-60 sm:w-72 bg-[#2f2f2f] border border-neutral-800 rounded-md p-4 transition-all duration-300 transform hover:scale-105 hover:z-20 hover:border-red-600 hover:shadow-2xl cursor-pointer flex flex-col justify-between space-y-3';
+                    card.className = 'flex-shrink-0 w-60 sm:w-72 bg-[#2f2f2f] border border-neutral-800 rounded-md overflow-hidden transition-all duration-300 transform hover:scale-105 hover:z-20 hover:border-red-600 hover:shadow-2xl cursor-pointer flex flex-col justify-between';
 
                     card.innerHTML = `
-                        <div class="space-y-2">
-                            <div class="flex justify-between items-center">
-                                <span class="text-[10px] font-extrabold uppercase text-red-500 tracking-wider">MATCH 99%</span>
-                                <span class="text-[10px] text-gray-400 font-mono">${item.date || 'NEW'}</span>
-                            </div>
-                            <h4 class="text-sm font-bold text-white tracking-wide">${item.title}</h4>
-                            <p class="text-xs text-gray-400 leading-snug line-clamp-3">${item.desc}</p>
+                        <div class="relative aspect-video bg-black overflow-hidden" onclick="openLightbox('${imgPath}')">
+                            <img src="${imgPath}" alt="${item.title}" class="w-full h-full object-cover transition duration-300 hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800'">
+                            <span class="absolute top-2 left-2 text-[9px] font-black uppercase text-red-500 bg-black/70 px-1.5 py-0.5 rounded">MATCH 99%</span>
                         </div>
-                        <div class="flex items-center justify-between pt-2 border-t border-neutral-700/50">
-                            <span class="text-[10px] bg-red-950/60 text-red-400 px-2 py-0.5 rounded font-bold uppercase tracking-wider">${item.category}</span>
-                            <button onclick="deleteEntry(${item.id})" class="text-gray-500 hover:text-red-500 transition text-xs" title="Delete">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
+                        <div class="p-3 space-y-2">
+                            <div class="flex justify-between items-center">
+                                <h4 class="text-xs font-bold text-white tracking-wide truncate">${item.title}</h4>
+                                <span class="text-[10px] text-gray-400 font-mono">${item.date || '2026'}</span>
+                            </div>
+                            <div class="flex items-center justify-between pt-1 border-t border-neutral-700/50">
+                                <span class="text-[9px] bg-red-950/60 text-red-400 px-2 py-0.5 rounded font-bold uppercase tracking-wider">${item.category}</span>
+                                <button onclick="deleteEntry(${item.id})" class="text-gray-500 hover:text-red-500 transition text-xs" title="Delete">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
                         </div>
                     `;
                     container.appendChild(card);
@@ -211,13 +225,13 @@
             e.preventDefault();
             const title = document.getElementById('entry-title').value;
             const category = document.getElementById('entry-category').value;
-            const desc = document.getElementById('entry-desc').value;
+            const img = document.getElementById('entry-img').value;
 
             memories.unshift({
                 id: Date.now(),
                 title,
                 category,
-                desc,
+                img,
                 date: new Date().getFullYear().toString()
             });
 
@@ -227,10 +241,23 @@
         }
 
         function deleteEntry(id) {
-            if(confirm('Delete this memory from the folder?')) {
+            if(confirm('Delete this photo entry?')) {
                 memories = memories.filter(m => m.id !== id);
                 saveAndRender();
             }
+        }
+
+        function openLightbox(url) {
+            document.getElementById('lightbox-img').src = url;
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
         }
 
         renderRows();
