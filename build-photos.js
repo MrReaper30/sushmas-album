@@ -1,21 +1,20 @@
 const fs = require('fs');
 const path = require('path');
 
-// Scan both lowercase and capitalized folder names to prevent path mismatches
-const targetCategories = [
-    { category: 'Me', folderNames: ['me', 'Me'] },
-    { category: 'Family', folderNames: ['Family', 'family'] },
-    { category: 'Bija', folderNames: ['Bija', 'bija'] },
-    { category: 'Funny', folderNames: ['Funny_Pictures', 'funny_pictures', 'Funny', 'funny'] },
-    { category: 'Trips', folderNames: ['Trips', 'trips'] }
+const categoryMap = [
+    { category: 'Me', folders: ['me', 'Me'] },
+    { category: 'Family', folders: ['Family', 'family'] },
+    { category: 'Bija', folders: ['Bija', 'bija'] },
+    { category: 'Funny', folders: ['Funny_Pictures', 'funny_pictures', 'Funny', 'funny'] },
+    { category: 'Trips', folders: ['Trips', 'trips'] }
 ];
 
 const validExts = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
 let photos = [];
 let id = 1;
 
-targetCategories.forEach(({ category, folderNames }) => {
-    folderNames.forEach(folderName => {
+categoryMap.forEach(({ category, folders }) => {
+    folders.forEach(folderName => {
         const dirPath = path.join(__dirname, folderName);
         if (fs.existsSync(dirPath)) {
             const files = fs.readdirSync(dirPath);
@@ -35,4 +34,4 @@ targetCategories.forEach(({ category, folderNames }) => {
 });
 
 fs.writeFileSync('photos.json', JSON.stringify(photos, null, 2));
-console.log(`✅ Indexed ${photos.length} photos!`);
+console.log(`✅ Indexed ${photos.length} photos cleanly!`);
