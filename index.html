@@ -9,12 +9,13 @@
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .fade-transition { transition: opacity 0.8s ease-in-out; }
     </style>
 </head>
 <body class="bg-[#141414] text-white min-h-screen font-sans selection:bg-red-600 selection:text-white">
 
     <!-- Netflix Navigation Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/90 via-black/50 to-transparent px-4 md:px-12 py-4 flex items-center justify-between transition-all duration-300">
+    <header class="fixed top-0 left-0 right-0 z-40 bg-gradient-to-b from-black/90 via-black/50 to-transparent px-4 md:px-12 py-4 flex items-center justify-between">
         <div class="flex items-center gap-8">
             <h1 class="text-2xl md:text-3xl font-extrabold text-[#E50914] tracking-wider uppercase drop-shadow-md">
                 SUSHMA
@@ -28,11 +29,6 @@
                 <a href="#row-Trips" class="hover:text-white transition">Trips</a>
             </nav>
         </div>
-        <div class="flex items-center gap-4">
-            <button onclick="toggleAddModal()" class="bg-[#E50914] hover:bg-[#b80710] text-white px-4 py-1.5 rounded text-xs font-bold flex items-center gap-2 transition shadow-lg">
-                <i class="fa-solid fa-plus"></i> Add Photo
-            </button>
-        </div>
     </header>
 
     <!-- Netflix Hero Section -->
@@ -44,18 +40,15 @@
             <p class="text-sm md:text-base text-gray-300 leading-relaxed line-clamp-3">
                 A curated memory collection featuring personal photos, moments with Bija, family gatherings, funny bloopers, and trips.
             </p>
-            <div class="flex items-center gap-3 pt-2">
-                <button onclick="document.getElementById('row-Me').scrollIntoView({ behavior: 'smooth' })" class="bg-white text-black hover:bg-gray-200 px-6 py-2 rounded font-bold text-xs flex items-center gap-2 transition">
-                    <i class="fa-solid fa-play text-black"></i> Browse Vault
-                </button>
-                <button onclick="toggleAddModal()" class="bg-gray-500/50 hover:bg-gray-500/70 text-white px-6 py-2 rounded font-bold text-xs flex items-center gap-2 backdrop-blur transition">
-                    <i class="fa-solid fa-circle-info"></i> Add New
+            <div class="pt-2">
+                <button onclick="startSlideshow()" class="bg-white text-black hover:bg-gray-200 px-8 py-3 rounded font-bold text-sm flex items-center gap-3 transition shadow-lg hover:scale-105 transform">
+                    <i class="fa-solid fa-play text-black text-base"></i> Play Slideshow
                 </button>
             </div>
         </div>
     </section>
 
-    <!-- Content Categories (Netflix Rows) -->
+    <!-- Content Categories (Side-by-Side Image Rows) -->
     <main class="px-4 md:px-12 space-y-10 -mt-10 relative z-10 pb-20">
         
         <!-- Category Row: Me -->
@@ -63,7 +56,7 @@
             <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
                 Sushma (Me) <span class="text-xs font-normal text-red-500">Personal</span>
             </h3>
-            <div id="grid-Me" class="flex gap-4 overflow-x-auto no-scrollbar py-4 scroll-smooth"></div>
+            <div id="grid-Me" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
         </section>
 
         <!-- Category Row: Family -->
@@ -71,7 +64,7 @@
             <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
                 Family & Loved Ones <span class="text-xs font-normal text-red-500">Popular</span>
             </h3>
-            <div id="grid-Family" class="flex gap-4 overflow-x-auto no-scrollbar py-4 scroll-smooth"></div>
+            <div id="grid-Family" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
         </section>
 
         <!-- Category Row: Bija -->
@@ -79,7 +72,7 @@
             <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
                 Mom & Bija <span class="text-xs font-normal text-red-500">Featured</span>
             </h3>
-            <div id="grid-Bija" class="flex gap-4 overflow-x-auto no-scrollbar py-4 scroll-smooth"></div>
+            <div id="grid-Bija" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
         </section>
 
         <!-- Category Row: Funny Moments -->
@@ -87,7 +80,7 @@
             <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
                 Funny Pictures & Bloopers 😂
             </h3>
-            <div id="grid-Funny" class="flex gap-4 overflow-x-auto no-scrollbar py-4 scroll-smooth"></div>
+            <div id="grid-Funny" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
         </section>
 
         <!-- Category Row: Trips -->
@@ -95,49 +88,25 @@
             <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100">
                 Trips & Outings
             </h3>
-            <div id="grid-Trips" class="flex gap-4 overflow-x-auto no-scrollbar py-4 scroll-smooth"></div>
+            <div id="grid-Trips" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
         </section>
 
     </main>
 
-    <!-- Modal for Adding Entry -->
-    <div id="add-modal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 p-4 backdrop-blur-sm">
-        <div class="bg-[#181818] border border-neutral-800 rounded-lg p-6 max-w-md w-full relative shadow-2xl">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-lg font-bold text-white uppercase tracking-wider">Add Photo Entry</h3>
-                <button onclick="toggleAddModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-            <form id="add-form" onsubmit="handleAdd(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 mb-1">Title / Caption</label>
-                    <input type="text" id="entry-title" required placeholder="e.g. Sunset in Goa" class="w-full bg-[#2f2f2f] border border-transparent focus:border-red-600 rounded px-3 py-2 text-sm text-white focus:outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 mb-1">Category Folder</label>
-                    <select id="entry-category" class="w-full bg-[#2f2f2f] border border-transparent focus:border-red-600 rounded px-3 py-2 text-sm text-white focus:outline-none">
-                        <option value="Me">Me (Personal)</option>
-                        <option value="Family">Family</option>
-                        <option value="Bija">With Bija</option>
-                        <option value="Funny">Funny Pictures / Bloopers</option>
-                        <option value="Trips">Trips & Outings</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 mb-1">Image Filename or URL</label>
-                    <input type="text" id="entry-img" placeholder="e.g. photo1.jpg (or image URL)" class="w-full bg-[#2f2f2f] border border-transparent focus:border-red-600 rounded px-3 py-2 text-sm text-white focus:outline-none">
-                    <p class="text-[10px] text-gray-500 mt-1">Place image files in the respective folder (e.g., me/photo1.jpg) or paste an image URL.</p>
-                </div>
-                <div class="flex justify-end gap-2 pt-2">
-                    <button type="button" onclick="toggleAddModal()" class="px-4 py-2 rounded text-xs font-bold text-gray-400 hover:bg-[#2f2f2f]">Cancel</button>
-                    <button type="submit" class="bg-[#E50914] hover:bg-[#b80710] text-white px-5 py-2 rounded text-xs font-bold">Save Memory</button>
-                </div>
-            </form>
-        </div>
+    <!-- Fullscreen Lightbox Modal -->
+    <div id="lightbox-modal" class="fixed inset-0 bg-black/95 hidden items-center justify-center z-50 p-4 cursor-pointer" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" class="max-h-[90vh] max-w-[95vw] object-contain rounded-lg shadow-2xl border border-neutral-800">
     </div>
 
-    <!-- Lightbox Modal -->
-    <div id="lightbox-modal" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-50 p-4 cursor-pointer" onclick="closeLightbox()">
-        <img id="lightbox-img" src="" class="max-h-[85vh] max-w-[90vw] object-contain rounded-lg shadow-2xl border border-neutral-800">
+    <!-- Fullscreen Slideshow Overlay -->
+    <div id="slideshow-modal" class="fixed inset-0 bg-black hidden items-center justify-center z-50 p-4">
+        <button onclick="stopSlideshow()" class="absolute top-6 right-6 text-white text-2xl z-50 bg-neutral-900/80 p-3 rounded-full hover:bg-red-600 transition">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="relative w-full h-full flex flex-col items-center justify-center">
+            <img id="slideshow-img" src="" class="max-h-[85vh] max-w-[90vw] object-contain rounded-lg fade-transition shadow-2xl">
+            <div id="slideshow-caption" class="mt-4 text-center text-sm font-semibold text-gray-300 bg-neutral-900/80 px-4 py-2 rounded-full border border-neutral-800"></div>
+        </div>
     </div>
 
     <script>
@@ -149,20 +118,13 @@
             'Trips': 'Trips'
         };
 
-        const defaultData = [
-            { id: 1, title: 'Personal Portrait', category: 'Me', img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800', date: '2026' },
-            { id: 2, title: 'Family Gathering', category: 'Family', img: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800', date: '2026' },
-            { id: 3, title: 'Outing with Bija', category: 'Bija', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800', date: '2026' },
-            { id: 4, title: 'Funny Pose Blooper', category: 'Funny', img: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800', date: '2026' },
-            { id: 5, title: 'Goa Trip Shoreline', category: 'Trips', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800', date: '2025' }
+        const memories = [
+            { id: 1, title: 'Personal Portrait', category: 'Me', img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800' },
+            { id: 2, title: 'Family Gathering', category: 'Family', img: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800' },
+            { id: 3, title: 'Outing with Bija', category: 'Bija', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800' },
+            { id: 4, title: 'Funny Pose Blooper', category: 'Funny', img: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800' },
+            { id: 5, title: 'Goa Trip Shoreline', category: 'Trips', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800' }
         ];
-
-        let memories = JSON.parse(localStorage.getItem('sushma_album_data')) || defaultData;
-
-        function saveAndRender() {
-            localStorage.setItem('sushma_album_data', JSON.stringify(memories));
-            renderRows();
-        }
 
         function resolveImgPath(item) {
             if (!item.img) return 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800';
@@ -183,30 +145,21 @@
                 const filtered = memories.filter(m => m.category === cat);
 
                 if (filtered.length === 0) {
-                    container.innerHTML = `<p class="text-xs text-gray-500 py-6">No photos in this folder yet.</p>`;
+                    container.innerHTML = `<p class="text-xs text-gray-500 py-6">No photos found in this folder.</p>`;
                     return;
                 }
 
                 filtered.forEach(item => {
                     const imgPath = resolveImgPath(item);
                     const card = document.createElement('div');
-                    card.className = 'flex-shrink-0 w-60 sm:w-72 bg-[#2f2f2f] border border-neutral-800 rounded-md overflow-hidden transition-all duration-300 transform hover:scale-105 hover:z-20 hover:border-red-600 hover:shadow-2xl cursor-pointer flex flex-col justify-between';
+                    card.className = 'flex-shrink-0 w-48 sm:w-64 bg-[#2f2f2f] border border-neutral-800 rounded-md overflow-hidden transition-all duration-300 transform hover:scale-105 hover:z-20 hover:border-red-600 hover:shadow-2xl cursor-pointer group';
+                    card.onclick = () => openLightbox(imgPath);
 
                     card.innerHTML = `
-                        <div class="relative aspect-video bg-black overflow-hidden" onclick="openLightbox('${imgPath}')">
-                            <img src="${imgPath}" alt="${item.title}" class="w-full h-full object-cover transition duration-300 hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800'">
-                            <span class="absolute top-2 left-2 text-[9px] font-black uppercase text-red-500 bg-black/70 px-1.5 py-0.5 rounded">MATCH 99%</span>
-                        </div>
-                        <div class="p-3 space-y-2">
-                            <div class="flex justify-between items-center">
-                                <h4 class="text-xs font-bold text-white tracking-wide truncate">${item.title}</h4>
-                                <span class="text-[10px] text-gray-400 font-mono">${item.date || '2026'}</span>
-                            </div>
-                            <div class="flex items-center justify-between pt-1 border-t border-neutral-700/50">
-                                <span class="text-[9px] bg-red-950/60 text-red-400 px-2 py-0.5 rounded font-bold uppercase tracking-wider">${item.category}</span>
-                                <button onclick="deleteEntry(${item.id})" class="text-gray-500 hover:text-red-500 transition text-xs" title="Delete">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                        <div class="relative aspect-[4/3] bg-black overflow-hidden">
+                            <img src="${imgPath}" alt="${item.title}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3">
+                                <p class="text-xs font-bold text-white tracking-wide truncate">${item.title}</p>
                             </div>
                         </div>
                     `;
@@ -215,38 +168,7 @@
             });
         }
 
-        function toggleAddModal() {
-            const modal = document.getElementById('add-modal');
-            modal.classList.toggle('hidden');
-            modal.classList.toggle('flex');
-        }
-
-        function handleAdd(e) {
-            e.preventDefault();
-            const title = document.getElementById('entry-title').value;
-            const category = document.getElementById('entry-category').value;
-            const img = document.getElementById('entry-img').value;
-
-            memories.unshift({
-                id: Date.now(),
-                title,
-                category,
-                img,
-                date: new Date().getFullYear().toString()
-            });
-
-            toggleAddModal();
-            document.getElementById('add-form').reset();
-            saveAndRender();
-        }
-
-        function deleteEntry(id) {
-            if(confirm('Delete this photo entry?')) {
-                memories = memories.filter(m => m.id !== id);
-                saveAndRender();
-            }
-        }
-
+        // Lightbox Functions
         function openLightbox(url) {
             document.getElementById('lightbox-img').src = url;
             const modal = document.getElementById('lightbox-modal');
@@ -256,6 +178,44 @@
 
         function closeLightbox() {
             const modal = document.getElementById('lightbox-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Slideshow Engine
+        let slideshowInterval = null;
+        let currentSlideIndex = 0;
+
+        function startSlideshow() {
+            if (memories.length === 0) return;
+            currentSlideIndex = 0;
+            const modal = document.getElementById('slideshow-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            showSlide();
+            slideshowInterval = setInterval(() => {
+                currentSlideIndex = (currentSlideIndex + 1) % memories.length;
+                showSlide();
+            }, 3500);
+        }
+
+        function showSlide() {
+            const item = memories[currentSlideIndex];
+            const imgElement = document.getElementById('slideshow-img');
+            const captionElement = document.getElementById('slideshow-caption');
+
+            imgElement.style.opacity = '0';
+            setTimeout(() => {
+                imgElement.src = resolveImgPath(item);
+                captionElement.innerText = `${item.title} • (${item.category})`;
+                imgElement.style.opacity = '1';
+            }, 300);
+        }
+
+        function stopSlideshow() {
+            clearInterval(slideshowInterval);
+            const modal = document.getElementById('slideshow-modal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
         }
