@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sushma's Album - Family Edition</title>
+    <title>Sushma's Album - Netflix Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -29,7 +29,7 @@
                 HAPPY BIRTHDAY<br>SUSHMA! 🎉
             </h1>
             <p class="text-gray-400 text-sm md:text-base font-medium tracking-wide">
-                Loading Family Memory Vault...
+                Loading Memory Vault...
             </p>
             <div class="w-64 h-1.5 bg-neutral-800 rounded-full mx-auto overflow-hidden">
                 <div class="h-full bg-[#E50914] animate-progress"></div>
@@ -47,6 +47,14 @@
                 <h1 class="text-2xl md:text-3xl font-extrabold text-[#E50914] tracking-wider uppercase drop-shadow-md">
                     SUSHMA
                 </h1>
+                <nav class="hidden md:flex gap-5 text-xs text-gray-300 font-medium">
+                    <a href="#hero" class="hover:text-white transition">Home</a>
+                    <a href="#row-Me" class="hover:text-white transition">Me</a>
+                    <a href="#row-Family" class="hover:text-white transition">Family</a>
+                    <a href="#row-Bija" class="hover:text-white transition">Bija</a>
+                    <a href="#row-Funny" class="hover:text-white transition">Funny</a>
+                    <a href="#row-Trips" class="hover:text-white transition">Trips</a>
+                </nav>
             </div>
         </header>
 
@@ -54,9 +62,9 @@
             <div id="hero-bg" class="absolute inset-0 -z-10 bg-cover bg-center opacity-30"></div>
             <div class="max-w-2xl space-y-4">
                 <span class="text-xs font-bold tracking-widest text-red-500 uppercase">SUSHMA ORIGINAL</span>
-                <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tight">Family Vault</h2>
+                <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tight">Sushma's Vault</h2>
                 <p class="text-sm md:text-base text-gray-300 leading-relaxed line-clamp-3">
-                    Happy Birthday Mom! Here is your family memory collection.
+                    Happy Birthday Mom! Here is your personal memory showcase featuring photos with Bija, family gatherings, funny bloopers, and trips.
                 </p>
                 <div class="pt-2">
                     <button onclick="startSlideshow()" class="bg-white text-black hover:bg-gray-200 px-8 py-3 rounded font-bold text-sm flex items-center gap-3 transition shadow-lg hover:scale-105 transform">
@@ -67,11 +75,44 @@
         </section>
 
         <main class="px-4 md:px-12 space-y-10 -mt-10 relative z-10 pb-20">
+            <!-- Row: Me -->
+            <section id="row-Me" class="space-y-3">
+                <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
+                    Sushma (Me) <span class="text-xs font-normal text-red-500">Personal</span>
+                </h3>
+                <div id="grid-Me" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
+            </section>
+
+            <!-- Row: Family -->
             <section id="row-Family" class="space-y-3">
                 <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
-                    Family <span class="text-xs font-normal text-red-500">Collection</span>
+                    Family & Loved Ones <span class="text-xs font-normal text-red-500">Collection</span>
                 </h3>
                 <div id="grid-Family" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
+            </section>
+
+            <!-- Row: Bija -->
+            <section id="row-Bija" class="space-y-3">
+                <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
+                    Mom & Bija <span class="text-xs font-normal text-red-500">Featured</span>
+                </h3>
+                <div id="grid-Bija" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
+            </section>
+
+            <!-- Row: Funny -->
+            <section id="row-Funny" class="space-y-3">
+                <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
+                    Funny Pictures & Bloopers 😂
+                </h3>
+                <div id="grid-Funny" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
+            </section>
+
+            <!-- Row: Trips -->
+            <section id="row-Trips" class="space-y-3">
+                <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100">
+                    Trips & Outings
+                </h3>
+                <div id="grid-Trips" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
             </section>
         </main>
     </div>
@@ -122,31 +163,35 @@
         }
 
         function renderRows() {
-            const container = document.getElementById('grid-Family');
-            if (!container) return;
-            container.innerHTML = '';
+            const categories = ['Me', 'Family', 'Bija', 'Funny', 'Trips'];
 
-            const filtered = memories.filter(m => m.category === 'Family');
+            categories.forEach(cat => {
+                const container = document.getElementById(`grid-${cat}`);
+                if (!container) return;
+                container.innerHTML = '';
 
-            if (filtered.length === 0) {
-                container.innerHTML = `<p class="text-xs text-gray-500 py-6">No images in Family folder yet.</p>`;
-                return;
-            }
+                const filtered = memories.filter(m => m.category === cat);
 
-            filtered.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'flex-shrink-0 w-48 sm:w-64 bg-[#2f2f2f] border border-neutral-800 rounded-md overflow-hidden transition-all duration-300 transform hover:scale-105 hover:z-20 hover:border-red-600 hover:shadow-2xl cursor-pointer group';
-                card.onclick = () => openLightbox(item.img);
+                if (filtered.length === 0) {
+                    container.innerHTML = `<p class="text-xs text-gray-500 py-6">No images in ${cat} folder yet.</p>`;
+                    return;
+                }
 
-                card.innerHTML = `
-                    <div class="relative aspect-[4/3] bg-black overflow-hidden">
-                        <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3">
-                            <p class="text-xs font-bold text-white tracking-wide truncate capitalize">${item.title}</p>
+                filtered.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'flex-shrink-0 w-48 sm:w-64 bg-[#2f2f2f] border border-neutral-800 rounded-md overflow-hidden transition-all duration-300 transform hover:scale-105 hover:z-20 hover:border-red-600 hover:shadow-2xl cursor-pointer group';
+                    card.onclick = () => openLightbox(item.img);
+
+                    card.innerHTML = `
+                        <div class="relative aspect-[4/3] bg-black overflow-hidden">
+                            <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3">
+                                <p class="text-xs font-bold text-white tracking-wide truncate capitalize">${item.title}</p>
+                            </div>
                         </div>
-                    </div>
-                `;
-                container.appendChild(card);
+                    `;
+                    container.appendChild(card);
+                });
             });
         }
 
@@ -188,7 +233,7 @@
             imgElement.style.opacity = '0';
             setTimeout(() => {
                 imgElement.src = item.img;
-                captionElement.innerText = `${item.title}`;
+                captionElement.innerText = `${item.title} • (${item.category})`;
                 imgElement.style.opacity = '1';
             }, 300);
         }

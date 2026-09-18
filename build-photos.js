@@ -19,7 +19,6 @@ Object.entries(folders).forEach(([category, folderName]) => {
         const files = fs.readdirSync(dirPath);
         files.forEach(file => {
             const ext = path.extname(file).toLowerCase();
-            // Ignore .trashed files or hidden files starting with .
             if (validExts.includes(ext) && !file.startsWith('.') && !file.includes('.trashed')) {
                 photos.push({
                     id: id++,
@@ -33,4 +32,4 @@ Object.entries(folders).forEach(([category, folderName]) => {
 });
 
 fs.writeFileSync('photos.json', JSON.stringify(photos, null, 2));
-console.log(`✅ Successfully indexed ${photos.length} real photos!`);
+console.log(`✅ Indexed ${photos.length} photos across all categories!`);
