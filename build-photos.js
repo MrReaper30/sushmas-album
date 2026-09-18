@@ -5,8 +5,7 @@ const categoryFolders = [
     { category: 'Me', possibleFolders: ['Me', 'me'] },
     { category: 'Family', possibleFolders: ['Family', 'family'] },
     { category: 'Bija', possibleFolders: ['Bija', 'bija'] },
-    { category: 'Funny', possibleFolders: ['Funny_Pictures', 'funny_pictures', 'Funny', 'funny'] },
-    { category: 'Trips', possibleFolders: ['Trips', 'trips'] }
+    { category: 'Funny', possibleFolders: ['Funny_Pictures', 'funny_pictures', 'Funny', 'funny'] }
 ];
 
 const validExts = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
@@ -38,4 +37,4 @@ categoryFolders.forEach(({ category, possibleFolders }) => {
 });
 
 fs.writeFileSync('photos.json', JSON.stringify(photos, null, 2));
-console.log(`✅ Indexed ${photos.length} photos cleanly without missing files or duplicates!`);
+console.log(`✅ Indexed ${photos.length} photos!`);
