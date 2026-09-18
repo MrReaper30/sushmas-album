@@ -33,7 +33,7 @@
 
     <!-- Netflix Hero Section -->
     <section id="hero" class="relative h-[65vh] md:h-[75vh] flex items-end pb-16 px-4 md:px-12 bg-gradient-to-t from-[#141414] via-[#141414]/40 to-black/70">
-        <div class="absolute inset-0 -z-10 bg-[url('https://images.unsplash.com/photo-1511895426328-dc8714191300?w=1600')] bg-cover bg-center opacity-30"></div>
+        <div id="hero-bg" class="absolute inset-0 -z-10 bg-cover bg-center opacity-30"></div>
         <div class="max-w-2xl space-y-4">
             <span class="text-xs font-bold tracking-widest text-red-500 uppercase">SUSHMA ORIGINAL</span>
             <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tight">Mom's Memory Vault</h2>
@@ -48,10 +48,8 @@
         </div>
     </section>
 
-    <!-- Content Categories (Side-by-Side Image Rows) -->
+    <!-- Content Categories -->
     <main class="px-4 md:px-12 space-y-10 -mt-10 relative z-10 pb-20">
-        
-        <!-- Category Row: Me -->
         <section id="row-Me" class="space-y-3">
             <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
                 Sushma (Me) <span class="text-xs font-normal text-red-500">Personal</span>
@@ -59,7 +57,6 @@
             <div id="grid-Me" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
         </section>
 
-        <!-- Category Row: Family -->
         <section id="row-Family" class="space-y-3">
             <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
                 Family & Loved Ones <span class="text-xs font-normal text-red-500">Popular</span>
@@ -67,7 +64,6 @@
             <div id="grid-Family" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
         </section>
 
-        <!-- Category Row: Bija -->
         <section id="row-Bija" class="space-y-3">
             <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
                 Mom & Bija <span class="text-xs font-normal text-red-500">Featured</span>
@@ -75,7 +71,6 @@
             <div id="grid-Bija" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
         </section>
 
-        <!-- Category Row: Funny Moments -->
         <section id="row-Funny" class="space-y-3">
             <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100 flex items-center gap-2">
                 Funny Pictures & Bloopers 😂
@@ -83,14 +78,12 @@
             <div id="grid-Funny" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
         </section>
 
-        <!-- Category Row: Trips -->
         <section id="row-Trips" class="space-y-3">
             <h3 class="text-lg md:text-xl font-bold tracking-wide text-gray-100">
                 Trips & Outings
             </h3>
             <div id="grid-Trips" class="flex gap-4 overflow-x-auto no-scrollbar py-2 scroll-smooth"></div>
         </section>
-
     </main>
 
     <!-- Fullscreen Lightbox Modal -->
@@ -110,27 +103,20 @@
     </div>
 
     <script>
-        const categoryFolders = {
-            'Me': 'me',
-            'Family': 'Family',
-            'Bija': 'Bija',
-            'Funny': 'Funny_Pictures',
-            'Trips': 'Trips'
-        };
+        let memories = [];
 
-        const memories = [
-            { id: 1, title: 'Personal Portrait', category: 'Me', img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800' },
-            { id: 2, title: 'Family Gathering', category: 'Family', img: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800' },
-            { id: 3, title: 'Outing with Bija', category: 'Bija', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800' },
-            { id: 4, title: 'Funny Pose Blooper', category: 'Funny', img: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800' },
-            { id: 5, title: 'Goa Trip Shoreline', category: 'Trips', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800' }
-        ];
-
-        function resolveImgPath(item) {
-            if (!item.img) return 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800';
-            if (item.img.startsWith('http://') || item.img.startsWith('https://')) return item.img;
-            const folder = categoryFolders[item.category] || 'me';
-            return `./${folder}/${item.img}`;
+        async function loadPhotos() {
+            try {
+                const res = await fetch('photos.json');
+                memories = await res.json();
+            } catch (e) {
+                console.error("Could not load photos.json", e);
+                memories = [];
+            }
+            if (memories.length > 0) {
+                document.getElementById('hero-bg').style.backgroundImage = `url('${memories[0].img}')`;
+            }
+            renderRows();
         }
 
         function renderRows() {
@@ -141,25 +127,23 @@
                 if (!container) return;
                 
                 container.innerHTML = '';
-
                 const filtered = memories.filter(m => m.category === cat);
 
                 if (filtered.length === 0) {
-                    container.innerHTML = `<p class="text-xs text-gray-500 py-6">No photos found in this folder.</p>`;
+                    container.innerHTML = `<p class="text-xs text-gray-500 py-6">No images found in this folder yet.</p>`;
                     return;
                 }
 
                 filtered.forEach(item => {
-                    const imgPath = resolveImgPath(item);
                     const card = document.createElement('div');
                     card.className = 'flex-shrink-0 w-48 sm:w-64 bg-[#2f2f2f] border border-neutral-800 rounded-md overflow-hidden transition-all duration-300 transform hover:scale-105 hover:z-20 hover:border-red-600 hover:shadow-2xl cursor-pointer group';
-                    card.onclick = () => openLightbox(imgPath);
+                    card.onclick = () => openLightbox(item.img);
 
                     card.innerHTML = `
                         <div class="relative aspect-[4/3] bg-black overflow-hidden">
-                            <img src="${imgPath}" alt="${item.title}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800'">
+                            <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3">
-                                <p class="text-xs font-bold text-white tracking-wide truncate">${item.title}</p>
+                                <p class="text-xs font-bold text-white tracking-wide truncate capitalize">${item.title}</p>
                             </div>
                         </div>
                     `;
@@ -168,7 +152,6 @@
             });
         }
 
-        // Lightbox Functions
         function openLightbox(url) {
             document.getElementById('lightbox-img').src = url;
             const modal = document.getElementById('lightbox-modal');
@@ -182,7 +165,6 @@
             modal.classList.remove('flex');
         }
 
-        // Slideshow Engine
         let slideshowInterval = null;
         let currentSlideIndex = 0;
 
@@ -207,7 +189,7 @@
 
             imgElement.style.opacity = '0';
             setTimeout(() => {
-                imgElement.src = resolveImgPath(item);
+                imgElement.src = item.img;
                 captionElement.innerText = `${item.title} • (${item.category})`;
                 imgElement.style.opacity = '1';
             }, 300);
@@ -220,7 +202,7 @@
             modal.classList.remove('flex');
         }
 
-        renderRows();
+        loadPhotos();
     </script>
 </body>
 </html>
