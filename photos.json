@@ -73,230 +73,80 @@
   },
   {
     "id": 13,
-    "title": "IMG 20260918 WA0008",
-    "category": "Me",
-    "img": "./Me/IMG-20260918-WA0008.jpg"
-  },
-  {
-    "id": 14,
-    "title": "IMG 20260918 WA0015",
-    "category": "Me",
-    "img": "./Me/IMG-20260918-WA0015.jpg"
-  },
-  {
-    "id": 15,
-    "title": "IMG 20260918 WA0017",
-    "category": "Me",
-    "img": "./Me/IMG-20260918-WA0017.jpg"
-  },
-  {
-    "id": 16,
-    "title": "IMG 20260918 WA0019",
-    "category": "Me",
-    "img": "./Me/IMG-20260918-WA0019.jpg"
-  },
-  {
-    "id": 17,
-    "title": "IMG 20260918 WA0023",
-    "category": "Me",
-    "img": "./Me/IMG-20260918-WA0023.jpg"
-  },
-  {
-    "id": 18,
-    "title": "IMG 20260918 WA0025",
-    "category": "Me",
-    "img": "./Me/IMG-20260918-WA0025.jpg"
-  },
-  {
-    "id": 19,
-    "title": "IMG 20260918 WA0027",
-    "category": "Me",
-    "img": "./Me/IMG-20260918-WA0027.jpg"
-  },
-  {
-    "id": 20,
-    "title": "IMG 20260918 WA0030",
-    "category": "Me",
-    "img": "./Me/IMG-20260918-WA0030.jpg"
-  },
-  {
-    "id": 21,
-    "title": "IMG 20260918 WA0035",
-    "category": "Me",
-    "img": "./Me/IMG-20260918-WA0035.jpg"
-  },
-  {
-    "id": 22,
-    "title": "IMG 20260918 WA0036",
-    "category": "Me",
-    "img": "./Me/IMG-20260918-WA0036.jpg"
-  },
-  {
-    "id": 23,
-    "title": "IMG 20260918 WA0038",
-    "category": "Me",
-    "img": "./Me/IMG-20260918-WA0038.jpg"
-  },
-  {
-    "id": 24,
-    "title": "WA 1789727398131",
-    "category": "Me",
-    "img": "./Me/WA_1789727398131.jpeg"
-  },
-  {
-    "id": 25,
     "title": "IMG 20260918 WA0009",
     "category": "Bija",
     "img": "./Bija/IMG-20260918-WA0009.jpg"
   },
   {
-    "id": 26,
+    "id": 14,
     "title": "IMG 20260918 WA0010",
     "category": "Bija",
     "img": "./Bija/IMG-20260918-WA0010.jpg"
   },
   {
-    "id": 27,
+    "id": 15,
     "title": "IMG 20260918 WA0011",
     "category": "Bija",
     "img": "./Bija/IMG-20260918-WA0011.jpg"
   },
   {
-    "id": 28,
+    "id": 16,
     "title": "IMG 20260918 WA0018",
     "category": "Bija",
     "img": "./Bija/IMG-20260918-WA0018.jpg"
   },
   {
-    "id": 29,
+    "id": 17,
     "title": "IMG 20260918 WA0022",
     "category": "Bija",
     "img": "./Bija/IMG-20260918-WA0022.jpg"
   },
   {
-    "id": 30,
+    "id": 18,
     "title": "IMG 20260918 WA0032",
     "category": "Bija",
     "img": "./Bija/IMG-20260918-WA0032.jpg"
   },
   {
-    "id": 31,
+    "id": 19,
     "title": "IMG 20260918 WA0034",
     "category": "Bija",
     "img": "./Bija/IMG-20260918-WA0034.jpg"
   },
   {
-    "id": 32,
+    "id": 20,
     "title": "IMG 20260918 WA0037",
     "category": "Bija",
     "img": "./Bija/IMG-20260918-WA0037.jpg"
   },
   {
-    "id": 33,
+    "id": 21,
     "title": "IMG 20260918 WA0039",
     "category": "Bija",
     "img": "./Bija/IMG-20260918-WA0039.jpg"
   },
   {
-    "id": 34,
-    "title": "IMG 20260918 WA0009",
-    "category": "Bija",
-    "img": "./bija/IMG-20260918-WA0009.jpg"
-  },
-  {
-    "id": 35,
-    "title": "IMG 20260918 WA0010",
-    "category": "Bija",
-    "img": "./bija/IMG-20260918-WA0010.jpg"
-  },
-  {
-    "id": 36,
-    "title": "IMG 20260918 WA0011",
-    "category": "Bija",
-    "img": "./bija/IMG-20260918-WA0011.jpg"
-  },
-  {
-    "id": 37,
-    "title": "IMG 20260918 WA0018",
-    "category": "Bija",
-    "img": "./bija/IMG-20260918-WA0018.jpg"
-  },
-  {
-    "id": 38,
-    "title": "IMG 20260918 WA0022",
-    "category": "Bija",
-    "img": "./bija/IMG-20260918-WA0022.jpg"
-  },
-  {
-    "id": 39,
-    "title": "IMG 20260918 WA0032",
-    "category": "Bija",
-    "img": "./bija/IMG-20260918-WA0032.jpg"
-  },
-  {
-    "id": 40,
-    "title": "IMG 20260918 WA0034",
-    "category": "Bija",
-    "img": "./bija/IMG-20260918-WA0034.jpg"
-  },
-  {
-    "id": 41,
-    "title": "IMG 20260918 WA0037",
-    "category": "Bija",
-    "img": "./bija/IMG-20260918-WA0037.jpg"
-  },
-  {
-    "id": 42,
-    "title": "IMG 20260918 WA0039",
-    "category": "Bija",
-    "img": "./bija/IMG-20260918-WA0039.jpg"
-  },
-  {
-    "id": 43,
+    "id": 22,
     "title": "IMG 20260918 WA0026",
     "category": "Funny",
     "img": "./Funny_Pictures/IMG-20260918-WA0026.jpg"
   },
   {
-    "id": 44,
+    "id": 23,
     "title": "IMG 20260918 WA0028",
     "category": "Funny",
     "img": "./Funny_Pictures/IMG-20260918-WA0028.jpg"
   },
   {
-    "id": 45,
+    "id": 24,
     "title": "IMG 20260918 WA0029",
     "category": "Funny",
     "img": "./Funny_Pictures/IMG-20260918-WA0029.jpg"
   },
   {
-    "id": 46,
+    "id": 25,
     "title": "IMG 20260918 WA0033",
     "category": "Funny",
     "img": "./Funny_Pictures/IMG-20260918-WA0033.jpg"
-  },
-  {
-    "id": 47,
-    "title": "IMG 20260918 WA0026",
-    "category": "Funny",
-    "img": "./funny_pictures/IMG-20260918-WA0026.jpg"
-  },
-  {
-    "id": 48,
-    "title": "IMG 20260918 WA0028",
-    "category": "Funny",
-    "img": "./funny_pictures/IMG-20260918-WA0028.jpg"
-  },
-  {
-    "id": 49,
-    "title": "IMG 20260918 WA0029",
-    "category": "Funny",
-    "img": "./funny_pictures/IMG-20260918-WA0029.jpg"
-  },
-  {
-    "id": 50,
-    "title": "IMG 20260918 WA0033",
-    "category": "Funny",
-    "img": "./funny_pictures/IMG-20260918-WA0033.jpg"
   }
 ]
